@@ -1,16 +1,26 @@
-import Image from "next/image";
-import { useQuery } from "convex/react";
+import { useMutation } from "convex/react";
+import { useRouter } from "next/router";
 import { api } from "../../convex/_generated/api";
-
+import { useEffect, useState } from "react";
 export default function Home() {
-  const task = useQuery(api.task.get);
+  const [loading, setLoading] = useState(false);
+  const createRoom = useMutation(api.rooms.create);
+  const router = useRouter();
+
+  async function onRoomCreated() {
+    setLoading(true);
+    const roomId = await createRoom();
+    setLoading(false);
+    router.push(`/room/${roomId}`);
+  }
+
   return (
-    <main
-      className={`flex min-h-screen flex-col items-center justify-between p-24`}
-    >
-      {task?.map(({ _id, text }) => (
-        <h1 key={_id.toString()}>{text}</h1>
-      ))}
+    <main className={`flex min-h-screen flex-col justify-center items-center`}>
+      <h1 className="text-6xl">Poker planing</h1>
+      <button className="btn btn-lg btn-info mt-10" onClick={onRoomCreated}>
+        {loading && <span className="spinner-border spinner-border-sm mr-2" />}
+        Create Room
+      </button>
     </main>
   );
 }
