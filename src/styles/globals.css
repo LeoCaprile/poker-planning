@@ -1,3 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@media (max-width: 425px) {
+  html,
+  body {
+    width: 100% !important;
+    height: calc(100% + 12rem) !important;
+  }
+}
+
+html,
+body {
+  background-color: #ffff;
+  width: 100%;
+  height: calc(100% + 2rem);
+}

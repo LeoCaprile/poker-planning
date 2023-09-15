@@ -1,6 +1,7 @@
 import { v } from "convex/values";
-import { mutation, query } from "./_generated/server";
+import { httpAction, mutation, query } from "./_generated/server";
 import { Id } from "./_generated/dataModel";
+import { api } from "./_generated/api";
 
 export const get = query({
   args: { id: v.id("users") },
@@ -17,10 +18,20 @@ export const create = mutation({
     state: v.union(v.literal("idle"), v.literal("ready"), v.literal("coffee")),
   },
   handler: async (ctx, { name, role, state, roomId }) => {
-    const userId = await ctx.db.insert("users", { name, role, state });
+    const userId = await ctx.db.insert("users", { name, role, state, vote: 0 });
     const room = await ctx.db.get(roomId);
-    await ctx.db.patch(roomId, { users: [...room.users, userId] });
+    await ctx.db.patch(roomId, { users: [...(room?.users ?? []), userId] });
     return userId;
+  },
+});
+
+export const vote = mutation({
+  args: {
+    id: v.id("users"),
+    vote: v.number(),
+  },
+  handler: async (ctx, { id, vote }) => {
+    await ctx.db.patch(id, { vote, state: "ready" });
   },
 });
 
@@ -35,4 +46,14 @@ export const remove = mutation({
     });
     await ctx.db.delete(id);
   },
+});
+
+export const removeUserHttp = httpAction(async (ctx, req) => {
+  const { id, roomId } = await req.json();
+
+  await ctx.runMutation(api.users.remove, { id, roomId });
+
+  return new Response(null, {
+    status: 200,
+  });
 });
