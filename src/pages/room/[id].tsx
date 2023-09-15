@@ -1,11 +1,27 @@
-import { useMutation, useQuery } from "convex/react";
+import { useMutation } from "convex/react";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { api } from "../../../convex/_generated/api";
 import { Id } from "../../../convex/_generated/dataModel";
+import UserList from "@/components/Molecules/UserList";
+import { useBeforeunload } from "react-beforeunload";
+import ChooseRoleModal from "@/components/Molecules/ChooseRoleModal";
+import DevControls from "@/components/Molecules/DevControls";
+import styles from "./room.module.css";
+import toast from "react-hot-toast";
+import CardTable from "@/components/Molecules/CardTable";
 
-type Role = "dev" | "po" | "viewer";
-type Status = "idle" | "ready" | "coffee";
+const useUnload = (fn: any) => {
+  const cb = React.useRef(fn);
+
+  React.useEffect(() => {
+    const onUnload = cb.current;
+    window.addEventListener("beforeunload", onUnload);
+    return () => {
+      window.removeEventListener("beforeunload", onUnload);
+    };
+  }, [cb]);
+};
 
 const RoomPage = () => {
   const router = useRouter();
@@ -13,109 +29,51 @@ const RoomPage = () => {
   const [userId, setUserId] = useState<string>("");
   const [userName, setUserName] = useState<string>("");
   const { id } = router.query as { id: Id<"rooms"> };
-  const usersInRoom = useQuery(api.rooms.getUsers, { id });
   const createUser = useMutation(api.users.create);
-  const deleteUser = useMutation(api.users.remove);
+
+  type Role = "dev" | "po" | "viewer";
+  type Status = "idle" | "ready" | "coffee";
 
   async function selectRole(
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) {
-    if (!userName) return;
+    if (!userName) {
+      toast.error("To enter the room you need to provide your name");
+      return;
+    }
 
     const role = e.currentTarget.value as Role;
-    const userId = await createUser({
+
+    const userIdFromback = await createUser({
       name: userName,
       role,
       roomId: id,
       state: "idle",
     });
-    setUserId(userId);
+
+    setUserId(userIdFromback);
     setModal(false);
   }
 
-  useEffect(() => {
-    if (!userId) return;
-    window.addEventListener("beforeunload", async (e) => {
-      e.preventDefault();
-      await deleteUser({ id: userId as Id<"users">, roomId: id });
-      e.returnValue = "";
-    });
-  }, [userId]);
-
   return (
-    <div>
-      <div className="card w-96 bg-base-100 shadow-xl">
-        <div className="card-body">
-          <h2 className="card-title">Users</h2>
-          <ul className="flex flex-col gap-5">
-            {usersInRoom && usersInRoom?.length > 0 ? (
-              usersInRoom?.map((user) => (
-                <li key={user.id}>
-                  <span
-                    className={`badge badge-lg ${
-                      user.state === "idle"
-                        ? "badge-warning"
-                        : user.state === "ready"
-                        ? "badge-success"
-                        : "badge-error"
-                    }`}
-                  >
-                    {user.name} - {user.role}
-                  </span>
-                </li>
-              ))
-            ) : (
-              <span>No users in room</span>
-            )}
-          </ul>
-        </div>
+    <div className={styles.container}>
+      <div className={styles.usersList}>
+        <UserList id={id} />
       </div>
 
-      <dialog open={modal} id="my_modal_1" className="modal">
-        <div className="modal-box">
-          <div className="flex flex-col justify-center items-center">
-            <h2 className="font-bold text-3xl text-center">Choose your role</h2>
-            <div className="form-control w-full max-w-xs">
-              <label className="label">
-                <span className="label-text">What is your name?</span>
-              </label>
-              <input
-                onChange={(e) => setUserName(e.target.value)}
-                value={userName}
-                type="text"
-                placeholder="Please provide your name"
-                className={`input input-success w-full max-w-xs ${
-                  !userName && "input-error"
-                }`}
-              />
-            </div>
-          </div>
+      <div className={styles.main}>
+        <CardTable />
+      </div>
 
-          <div className="flex gap-5 justify-center mt-10">
-            <button
-              onClick={selectRole}
-              value="dev"
-              className="btn btn-lg btn-info"
-            >
-              Dev
-            </button>
-            <button
-              onClick={selectRole}
-              value="po"
-              className="btn btn-lg btn-warning"
-            >
-              PO
-            </button>
-            <button
-              onClick={selectRole}
-              value="viewer"
-              className="btn btn-lg btn-success"
-            >
-              Viewer
-            </button>
-          </div>
-        </div>
-      </dialog>
+      <div className={styles.controls}>
+        <DevControls id={userId as Id<"users">} />
+      </div>
+      <ChooseRoleModal
+        onChange={(e) => setUserName(e.target.value)}
+        open={modal}
+        userName={userName}
+        selectRole={selectRole}
+      />
     </div>
   );
 };

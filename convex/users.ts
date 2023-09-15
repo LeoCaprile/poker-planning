@@ -17,10 +17,20 @@ export const create = mutation({
     state: v.union(v.literal("idle"), v.literal("ready"), v.literal("coffee")),
   },
   handler: async (ctx, { name, role, state, roomId }) => {
-    const userId = await ctx.db.insert("users", { name, role, state });
+    const userId = await ctx.db.insert("users", { name, role, state, vote: 0 });
     const room = await ctx.db.get(roomId);
     await ctx.db.patch(roomId, { users: [...room.users, userId] });
     return userId;
+  },
+});
+
+export const vote = mutation({
+  args: {
+    id: v.id("users"),
+    vote: v.number(),
+  },
+  handler: async (ctx, { id, vote }) => {
+    await ctx.db.patch(id, { vote, state: "ready" });
   },
 });
 

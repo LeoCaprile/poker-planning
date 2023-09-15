@@ -25,7 +25,10 @@ export const getUsers = query({
 export const create = mutation({
   args: {},
   handler: async (ctx) => {
-    const roomId = await ctx.db.insert("rooms", { users: [] });
+    const roomId = await ctx.db.insert("rooms", {
+      users: [],
+      showVotes: false,
+    });
     return roomId;
   },
 });
