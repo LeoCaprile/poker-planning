@@ -14,7 +14,7 @@ const PoControls = () => {
   const room = useQuery(api.rooms.get, { id });
   const users = useQuery(api.rooms.getUsers, { id });
 
-  const usersHasVoted = users?.some((user) => user?.vote !== 0);
+  const usersHasVoted = !users?.some((user) => user?.vote !== 0);
 
   async function onShowCards() {
     await showCards({ id });
@@ -27,13 +27,18 @@ const PoControls = () => {
   return (
     <Card title="Control the session">
       <div className="flex gap-5">
-        <button
-          disabled={!usersHasVoted}
-          onClick={onShowCards}
-          className="btn btn-lg btn-primary"
+        <div
+          className={usersHasVoted && "tooltip"}
+          data-tip="At least one user has to vote"
         >
-          {room?.showVotes ? "Reset" : "Show Cards"}{" "}
-        </button>
+          <button
+            disabled={usersHasVoted}
+            onClick={onShowCards}
+            className="btn btn-lg btn-primary"
+          >
+            {room?.showVotes ? "Reset" : "Show Cards"}{" "}
+          </button>
+        </div>
         <button onClick={onResetVotes} className="btn btn-lg btn-primary">
           Next estimation
         </button>
