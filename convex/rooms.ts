@@ -52,7 +52,8 @@ export const resetVotes = mutation({
 
     Promise.all([
       room?.users.map(
-        async (userId: Id<"users">) => await ctx.db.patch(userId, { vote: 0 })
+        async (userId: Id<"users">) =>
+          await ctx.db.patch(userId, { vote: 0, state: "idle" })
       ) ?? [],
       ctx.db.patch(args.id, { showVotes: false }),
     ]);
