@@ -1,6 +1,7 @@
 import { v } from "convex/values";
-import { mutation, query } from "./_generated/server";
+import { httpAction, mutation, query } from "./_generated/server";
 import { Id } from "./_generated/dataModel";
+import { api } from "./_generated/api";
 
 export const get = query({
   args: { id: v.id("users") },
@@ -41,8 +42,18 @@ export const remove = mutation({
     console.log(room);
     console.log(id);
     await ctx.db.patch(roomId, {
-      users: room?.users.filter((userId: Id<"users">) => userId !== id),
+      users: room.users.filter((userId: Id<"users">) => userId !== id),
     });
     await ctx.db.delete(id);
   },
+});
+
+export const removeUserHttp = httpAction(async (ctx, req) => {
+  const { id, roomId } = await req.json();
+
+  await ctx.runMutation(api.users.remove, { id, roomId });
+
+  return new Response(null, {
+    status: 200,
+  });
 });

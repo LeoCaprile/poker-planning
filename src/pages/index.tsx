@@ -1,7 +1,7 @@
 import { useMutation } from "convex/react";
 import { useRouter } from "next/router";
 import { api } from "../../convex/_generated/api";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 export default function Home() {
   const [loading, setLoading] = useState(false);
   const createRoom = useMutation(api.rooms.create);
@@ -13,11 +13,7 @@ export default function Home() {
     setLoading(false);
     router.push(`/room/${roomId}`);
   }
-  useEffect(() => {
-    const listener = () => true;
-    window.addEventListener("beforeunload", listener);
-    return () => window.removeEventListener("beforeunload", listener);
-  }, []);
+
   return (
     <main className={`flex min-h-screen flex-col justify-center items-center`}>
       <h1 className="text-6xl">Poker planing</h1>

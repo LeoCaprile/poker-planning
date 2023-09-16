@@ -24,6 +24,19 @@ const RoomPage = () => {
   const createUser = useMutation(api.users.create);
   const deleteUser = useMutation(api.users.remove);
 
+  const REMOVEUSER_ENDPOINT =
+    process.env.NEXT_PUBLIC_CONVEX_HTTP_SERVER + "/deleteUser";
+
+  useEffect(() => {
+    if (!userId) return;
+    window.onunload = () => {
+      navigator.sendBeacon(
+        REMOVEUSER_ENDPOINT,
+        JSON.stringify({ id: userId, roomId: id })
+      );
+    };
+  }, [userId]);
+
   async function selectRole(
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) {
