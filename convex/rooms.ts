@@ -9,26 +9,52 @@ export const get = query({
   },
 });
 
+export const showCards = mutation({
+  args: { id: v.id("rooms") },
+  handler: async (ctx, args) => {
+    const room = await ctx.db.get(args.id);
+    await ctx.db.patch(args.id, { showVotes: !room?.showVotes });
+  },
+});
+
 export const getUsers = query({
   args: { id: v.id("rooms") },
   handler: async (ctx, args) => {
     const room = await ctx.db.get(args.id);
-    if (room.users.length === 0) {
+    if (room?.users.length === 0) {
       return [];
     }
 
     return Promise.all(
-      room.users.map(async (userId: Id<"user">) => await ctx.db.get(userId))
+      room?.users.map(
+        async (userId: Id<"users">) => await ctx.db.get(userId)
+      ) ?? []
     );
   },
 });
+
 export const create = mutation({
   args: {},
   handler: async (ctx) => {
     const roomId = await ctx.db.insert("rooms", {
       users: [],
       showVotes: false,
+      votesValues: [1, 2, 3, 5, 8],
     });
     return roomId;
+  },
+});
+
+export const resetVotes = mutation({
+  args: { id: v.id("rooms") },
+  handler: async (ctx, args) => {
+    const room = await ctx.db.get(args.id);
+
+    Promise.all([
+      room?.users.map(
+        async (userId: Id<"users">) => await ctx.db.patch(userId, { vote: 0 })
+      ) ?? [],
+      ctx.db.patch(args.id, { showVotes: false }),
+    ]);
   },
 });

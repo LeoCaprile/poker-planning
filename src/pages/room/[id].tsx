@@ -1,4 +1,4 @@
-import { useMutation } from "convex/react";
+import { useMutation, useQuery } from "convex/react";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { api } from "../../../convex/_generated/api";
@@ -10,29 +10,19 @@ import DevControls from "@/components/Molecules/DevControls";
 import styles from "./room.module.css";
 import toast from "react-hot-toast";
 import CardTable from "@/components/Molecules/CardTable";
+import PoControls from "@/components/Molecules/PoControls";
 
-const useUnload = (fn: any) => {
-  const cb = React.useRef(fn);
-
-  React.useEffect(() => {
-    const onUnload = cb.current;
-    window.addEventListener("beforeunload", onUnload);
-    return () => {
-      window.removeEventListener("beforeunload", onUnload);
-    };
-  }, [cb]);
-};
+type Role = "dev" | "po" | "viewer";
 
 const RoomPage = () => {
   const router = useRouter();
   const [modal, setModal] = useState(true);
-  const [userId, setUserId] = useState<string>("");
+  const [userId, setUserId] = useState<string>("_");
   const [userName, setUserName] = useState<string>("");
+  const [role, setRole] = useState<Role>("viewer");
   const { id } = router.query as { id: Id<"rooms"> };
   const createUser = useMutation(api.users.create);
-
-  type Role = "dev" | "po" | "viewer";
-  type Status = "idle" | "ready" | "coffee";
+  const deleteUser = useMutation(api.users.remove);
 
   async function selectRole(
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -50,7 +40,7 @@ const RoomPage = () => {
       roomId: id,
       state: "idle",
     });
-
+    setRole(role);
     setUserId(userIdFromback);
     setModal(false);
   }
@@ -65,9 +55,18 @@ const RoomPage = () => {
         <CardTable />
       </div>
 
-      <div className={styles.controls}>
-        <DevControls id={userId as Id<"users">} />
-      </div>
+      {role === "dev" && (
+        <div className={styles.controls}>
+          <DevControls id={userId as Id<"users">} />
+        </div>
+      )}
+
+      {role === "po" && (
+        <div className={styles.controls}>
+          <PoControls />
+        </div>
+      )}
+
       <ChooseRoleModal
         onChange={(e) => setUserName(e.target.value)}
         open={modal}

@@ -1,0 +1,37 @@
+.card {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.8s;
+  width: 5rem;
+  height: 8rem;
+}
+
+.show {
+  transform: rotateY(180deg);
+}
+
+.backCard {
+  z-index: 1;
+  background-color: #ffffff;
+  opacity: 1;
+  background-color: #ffffff;
+  opacity: 1;
+  background-image: linear-gradient(135deg, #444cf7 25%, transparent 25%),
+    linear-gradient(225deg, #444cf7 25%, transparent 25%),
+    linear-gradient(45deg, #444cf7 25%, transparent 25%),
+    linear-gradient(315deg, #444cf7 25%, #ffffff 25%);
+  background-position: 16px 0, 16px 0, 0 0, 0 0;
+  background-size: 32px 32px;
+  background-repeat: repeat;
+  border-radius: 0.5rem;
+  outline: 2px solid black;
+  background-repeat: repeat;
+  position: absolute;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.frontCard {
+  position: absolute;
+  transform: rotateY(180deg);
+}

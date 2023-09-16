@@ -1,11 +1,11 @@
 //SwitchTheme.tsx
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { FiMoon, FiSun } from "react-icons/fi";
 import { useLocalStorage } from "usehooks-ts";
 const SwitchTheme = () => {
   //we store the theme in localStorage to preserve the state on next visit with an initial theme of dark.
-  const [theme, setTheme] = useLocalStorage("theme", "dark");
+  const [theme, setTheme] = useState("light");
 
   //toggles the theme
   const toggleTheme = () => {

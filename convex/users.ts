@@ -19,7 +19,7 @@ export const create = mutation({
   handler: async (ctx, { name, role, state, roomId }) => {
     const userId = await ctx.db.insert("users", { name, role, state, vote: 0 });
     const room = await ctx.db.get(roomId);
-    await ctx.db.patch(roomId, { users: [...room.users, userId] });
+    await ctx.db.patch(roomId, { users: [...(room?.users ?? []), userId] });
     return userId;
   },
 });
@@ -41,7 +41,7 @@ export const remove = mutation({
     console.log(room);
     console.log(id);
     await ctx.db.patch(roomId, {
-      users: room.users.filter((userId: Id<"users">) => userId !== id),
+      users: room?.users.filter((userId: Id<"users">) => userId !== id),
     });
     await ctx.db.delete(id);
   },

@@ -4,10 +4,10 @@
   height: 100vh;
   padding: 12px;
   grid-template:
-    ". . .        .        user" auto
-    ". . main     main     user" auto
-    ". . main     main     user" auto
-    ". . controls controls utils" auto;
+    ". .    .        .        user" auto
+    ". main main     .     user" auto
+    ". main main     .     user" auto
+    ". controls controls . utils" auto;
 }
 
 .main {

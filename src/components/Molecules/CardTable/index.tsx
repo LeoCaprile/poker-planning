@@ -1,12 +1,32 @@
+import TableCard from "@/components/Atoms/TableCard";
+import { useQuery } from "convex/react";
 import React from "react";
-import style from "./cardvote.module.css";
+import { api } from "../../../../convex/_generated/api";
+import { Id } from "../../../../convex/_generated/dataModel";
+import { useRouter } from "next/router";
+
 const CardTable = () => {
+  const router = useRouter();
+  const { id } = router.query as { id: Id<"rooms"> };
+  const room = useQuery(api.rooms.get, { id });
+  const users = useQuery(api.rooms.getUsers, { id });
+
   return (
-    <div className="grid place-content-center">
-      <div className="h-96 w-96 bg-amber-300 rounded-full relative">
-        <div className={style.cardVote2} />
-        <div className={style.cardVote2} />
-      </div>
+    <div className="grid grid-cols-4 grid-rows-2 place-content-center gap-5">
+      {users?.map((user) => {
+        if (user?.vote === 0) return null;
+        if (typeof user !== undefined || typeof user !== null) {
+          return (
+            <TableCard
+              key={user?._id}
+              name={user.name}
+              show={room.showVotes}
+              value={user.vote}
+            />
+          );
+        }
+        return null;
+      })}
     </div>
   );
 };

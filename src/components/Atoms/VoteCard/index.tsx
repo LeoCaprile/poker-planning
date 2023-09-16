@@ -1,9 +1,9 @@
 import React from "react";
 
 type Props = {
-  value: number;
-  onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-  selected: boolean;
+  value: string | number;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  selected?: boolean;
 };
 
 const VoteCard = ({ value, onClick, selected }: Props) => {
