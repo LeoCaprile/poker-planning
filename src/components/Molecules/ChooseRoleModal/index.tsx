@@ -1,5 +1,9 @@
 import Modal from "@/components/Atoms/Modal";
+import { useRouter } from "next/router";
 import React from "react";
+import { Id } from "../../../../convex/_generated/dataModel";
+import { useQuery } from "convex/react";
+import { api } from "../../../../convex/_generated/api";
 type Props = {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   userName: string;
@@ -7,7 +11,17 @@ type Props = {
   open: boolean;
 };
 
+const DEV_USER_ROLE_LIMIT = 12;
+
 const ChooseRoleModal = ({ onChange, userName, selectRole, open }: Props) => {
+  const router = useRouter();
+  const { id } = router.query as { id: Id<"rooms"> };
+
+  const users = useQuery(api.rooms.getUsers, { id });
+
+  const hasDevUsersLimit =
+    users?.filter((user) => user?.role === "dev").length >= DEV_USER_ROLE_LIMIT;
+
   return (
     <Modal open={open} title="Choose your role">
       <div className="form-control w-full items-center">
@@ -18,6 +32,7 @@ const ChooseRoleModal = ({ onChange, userName, selectRole, open }: Props) => {
           onChange={onChange}
           value={userName}
           type="text"
+          maxLength={23}
           placeholder="Please provide your name"
           className={`input input-success w-full max-w-xs ${
             !userName && "input-error"
@@ -25,13 +40,19 @@ const ChooseRoleModal = ({ onChange, userName, selectRole, open }: Props) => {
         />
       </div>
       <div className="flex gap-5 justify-center mt-10">
-        <button
-          onClick={selectRole}
-          value="dev"
-          className="btn btn-lg btn-info"
+        <div
+          className={hasDevUsersLimit && "tooltip"}
+          data-tip="This room reach the limit for this role"
         >
-          Dev
-        </button>
+          <button
+            disabled={hasDevUsersLimit}
+            onClick={selectRole}
+            value="dev"
+            className="btn btn-lg btn-info"
+          >
+            Dev
+          </button>
+        </div>
         <button
           onClick={selectRole}
           value="po"

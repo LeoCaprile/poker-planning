@@ -7,7 +7,7 @@ type Props = {
 
 const Modal = ({ open, title, children }: PropsWithChildren<Props>) => {
   return (
-    <dialog open={open} className="modal bg-[#00000060] ">
+    <dialog open={open} className={`modal bg-[#00000060] ${!open && "hidden"}`}>
       <div className="modal-box">
         <div className="flex flex-col justify-center items-center">
           <h2 className="font-bold text-3xl text-center"> {title} </h2>

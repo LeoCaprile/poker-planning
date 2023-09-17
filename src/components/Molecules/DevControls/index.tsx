@@ -35,19 +35,17 @@ const DevControls = ({ id }: Props) => {
   }
 
   return (
-    <Card title="Choose your estimation">
-      <div className="flex justify-between mt-5 text-black font-medium">
-        {room &&
-          room?.votesValues?.map((value: string | number) => (
-            <VoteCard
-              key={value}
-              value={value}
-              selected={user?.vote === value}
-              onClick={(e) => onVote(Number(e.currentTarget.value))}
-            />
-          ))}
-      </div>
-    </Card>
+    <div className="flex gap-5 md:m-5 mt-5 text-black font-medium">
+      {room &&
+        room?.votesValues?.map((value: string | number) => (
+          <VoteCard
+            key={value}
+            value={value}
+            selected={user?.vote === value}
+            onClick={(e) => onVote(Number(e.currentTarget.value))}
+          />
+        ))}
+    </div>
   );
 };
 

@@ -1,17 +1,37 @@
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  .container {
+    padding: 0 !important;
+    grid-template:
+      "main" auto
+      "main" auto
+      "controls" auto / 1fr !important;
+  }
+
+  .main {
+    padding: 0 !important;
+  }
+
+  .controls {
+    margin: 0 !important;
+  }
+}
+
 .container {
   display: grid;
   width: 100vw;
   height: 100vh;
-  padding: 12px;
+  padding: 50px 150px;
   grid-template:
-    ". .    .        .        user" auto
-    ". main main     .     user" auto
-    ". main main     .     user" auto
-    ". controls controls . utils" auto;
+    "main  user" auto
+    "main  user" auto
+    "main  user" auto
+    "controls user" auto / 1fr 300px;
 }
 
 .main {
   grid-area: main;
+  padding: 50px;
 }
 
 .usersList {
@@ -19,6 +39,7 @@
 }
 
 .controls {
+  margin: 0 50px;
   grid-area: controls;
 }
 

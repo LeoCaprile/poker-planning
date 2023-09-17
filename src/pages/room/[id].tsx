@@ -22,7 +22,6 @@ const RoomPage = () => {
   const [role, setRole] = useState<Role>("viewer");
   const { id } = router.query as { id: Id<"rooms"> };
   const createUser = useMutation(api.users.create);
-  const deleteUser = useMutation(api.users.remove);
 
   const REMOVEUSER_ENDPOINT =
     process.env.NEXT_PUBLIC_CONVEX_HTTP_SERVER + "/deleteUser";
@@ -60,7 +59,7 @@ const RoomPage = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.usersList}>
+      <div className={styles.usersList + " hidden md:block"}>
         <UserList id={id} />
       </div>
 
