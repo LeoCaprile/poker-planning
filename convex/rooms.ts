@@ -3,9 +3,13 @@ import { mutation, query } from "./_generated/server";
 import { Id } from "./_generated/dataModel";
 
 export const get = query({
-  args: { id: v.id("rooms") },
+  args: { id: v.string() },
   handler: async (ctx, args) => {
-    return await ctx.db.get(args.id);
+    try {
+      return await ctx.db.get(args.id as Id<"rooms">);
+    } catch {
+      return null;
+    }
   },
 });
 

@@ -11,16 +11,20 @@ import styles from "./room.module.css";
 import toast from "react-hot-toast";
 import CardTable from "@/components/Molecules/CardTable";
 import PoControls from "@/components/Molecules/PoControls";
+import { ErrorBoundary } from "react-error-boundary";
+import Loader from "@/components/Atoms/Loader";
+import Page404 from "@/components/Atoms/404";
 
 type Role = "dev" | "po" | "viewer";
 
 const RoomPage = () => {
   const router = useRouter();
+  const { id } = router.query as { id: Id<"rooms"> };
+  const room = useQuery(api.rooms.get, { id });
   const [modal, setModal] = useState(true);
   const [userId, setUserId] = useState<string>("_");
   const [userName, setUserName] = useState<string>("");
   const [role, setRole] = useState<Role>("viewer");
-  const { id } = router.query as { id: Id<"rooms"> };
   const createUser = useMutation(api.users.create);
 
   const REMOVEUSER_ENDPOINT =
@@ -57,35 +61,41 @@ const RoomPage = () => {
     setModal(false);
   }
 
+  if (room === undefined) return <Loader />;
+
+  if (room === null) return <Page404 />;
+
   return (
-    <div className={styles.container}>
-      <div className={styles.usersList + " hidden md:block"}>
-        <UserList id={id} />
-      </div>
-
-      <div className={styles.main}>
-        <CardTable />
-      </div>
-
-      {role === "dev" && (
-        <div className={styles.controls}>
-          <DevControls id={userId as Id<"users">} />
+    <ErrorBoundary fallback={<div>An Error has ocurred</div>}>
+      <div className={styles.container}>
+        <div className={styles.usersList + " hidden md:block"}>
+          <UserList id={id} />
         </div>
-      )}
 
-      {role === "po" && (
-        <div className={styles.controls}>
-          <PoControls />
+        <div className={styles.main}>
+          <CardTable />
         </div>
-      )}
 
-      <ChooseRoleModal
-        onChange={(e) => setUserName(e.target.value)}
-        open={modal}
-        userName={userName}
-        selectRole={selectRole}
-      />
-    </div>
+        {role === "dev" && (
+          <div className={styles.controls}>
+            <DevControls id={userId as Id<"users">} />
+          </div>
+        )}
+
+        {role === "po" && (
+          <div className={styles.controls}>
+            <PoControls />
+          </div>
+        )}
+
+        <ChooseRoleModal
+          onChange={(e) => setUserName(e.target.value)}
+          open={modal}
+          userName={userName}
+          selectRole={selectRole}
+        />
+      </div>
+    </ErrorBoundary>
   );
 };
 
