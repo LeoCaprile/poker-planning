@@ -3,12 +3,11 @@ import React from "react";
 import { api } from "../../../../convex/_generated/api";
 import { Id } from "../../../../convex/_generated/dataModel";
 import Card from "@/components/Atoms/Card";
+import { useRouter } from "next/router";
 
-type Props = {
-  id: Id<"rooms">;
-};
-
-const UserList = ({ id }: Props) => {
+const UserList = () => {
+  const router = useRouter();
+  const { id } = router.query as { id: Id<"rooms"> };
   const usersInRoom = useQuery(api.rooms.getUsers, { id });
 
   if (!usersInRoom) {
@@ -44,9 +43,9 @@ const UserList = ({ id }: Props) => {
   );
 };
 
-const UserListCard = ({ id }: Props) => (
+const UserListCard = () => (
   <Card title="Users">
-    <UserList id={id} />
+    <UserList />
   </Card>
 );
 

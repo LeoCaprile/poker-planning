@@ -2,40 +2,56 @@ import Modal from "@/components/Atoms/Modal";
 import { useRouter } from "next/router";
 import React from "react";
 import { Id } from "../../../../convex/_generated/dataModel";
-import { useQuery } from "convex/react";
+import { useMutation, useQuery } from "convex/react";
 import { api } from "../../../../convex/_generated/api";
-type Props = {
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  userName: string;
-  selectRole: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-  open: boolean;
-};
+import { Role, useUserStore } from "@/store/userStore";
+import toast from "react-hot-toast";
 
 const DEV_USER_ROLE_LIMIT = 12;
 
-const ChooseRoleModal = ({ onChange, userName, selectRole, open }: Props) => {
+const ChooseRoleModal = () => {
   const router = useRouter();
   const { id } = router.query as { id: Id<"rooms"> };
-
   const users = useQuery(api.rooms.getUsers, { id });
+  const createUser = useMutation(api.users.create);
+  const { name, modal, setUser, setUserName } = useUserStore();
+
+  async function selectRole(
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) {
+    if (!name) {
+      toast.error("To enter the room you need to provide your name");
+      return;
+    }
+
+    const role = e.currentTarget.value as Role;
+
+    const userIdFromback = await createUser({
+      name,
+      role,
+      roomId: id,
+      state: "idle",
+    });
+    setUser({ userId: userIdFromback, role, modal: false });
+  }
 
   const hasDevUsersLimit =
     users?.filter((user) => user?.role === "dev").length >= DEV_USER_ROLE_LIMIT;
 
   return (
-    <Modal open={open} title="Choose your role">
+    <Modal open={modal} title="Choose your role">
       <div className="form-control w-full items-center">
         <label className="label">
           <span className="label-text">What is your name?</span>
         </label>
         <input
-          onChange={onChange}
-          value={userName}
+          onChange={(e) => setUserName(e.target.value)}
+          value={name}
           type="text"
           maxLength={23}
           placeholder="Please provide your name"
           className={`input input-success w-full max-w-xs ${
-            !userName && "input-error"
+            !name && "input-error"
           }`}
         />
       </div>
