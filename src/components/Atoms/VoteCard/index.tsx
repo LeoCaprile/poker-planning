@@ -11,7 +11,7 @@ const VoteCard = ({ value, onClick, selected }: Props) => {
     <button
       onClick={onClick}
       value={value}
-      className={`btn w-12 h-20 md:w-20 md:h-32 text-3xl rounded-md ${
+      className={`btn w-20 h-32 text-3xl rounded-md ${
         selected ? "btn-accent scale-110 -translate-y-2" : "btn-default"
       }`}
     >

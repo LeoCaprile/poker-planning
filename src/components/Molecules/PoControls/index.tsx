@@ -26,7 +26,7 @@ const PoControls = () => {
 
   return (
     <Card title="Control the session">
-      <div className="flex gap-5">
+      <div className="flex flex-col md:flex-row gap-5">
         <div
           className={usersHasVoted && "tooltip"}
           data-tip="At least one user has to vote"
@@ -34,9 +34,9 @@ const PoControls = () => {
           <button
             disabled={usersHasVoted}
             onClick={onShowCards}
-            className="btn btn-lg btn-primary"
+            className="btn btn-lg btn-primary w-full"
           >
-            {room?.showVotes ? "Reset" : "Show Cards"}{" "}
+            {room?.showVotes ? "Reset" : "Show Cards"}
           </button>
         </div>
         <button onClick={onResetVotes} className="btn btn-lg btn-primary">

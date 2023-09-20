@@ -55,7 +55,7 @@ const ChooseRoleModal = () => {
           }`}
         />
       </div>
-      <div className="flex gap-5 justify-center mt-10">
+      <div className="flex md:flex-row flex-col gap-5 justify-center mt-10">
         <div
           className={hasDevUsersLimit && "tooltip"}
           data-tip="This room reach the limit for this role"
@@ -64,7 +64,7 @@ const ChooseRoleModal = () => {
             disabled={hasDevUsersLimit}
             onClick={selectRole}
             value="dev"
-            className="btn btn-lg btn-info"
+            className="btn btn-lg btn-info w-full"
           >
             Dev
           </button>
