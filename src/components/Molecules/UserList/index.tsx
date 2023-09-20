@@ -4,11 +4,13 @@ import { api } from "../../../../convex/_generated/api";
 import { Id } from "../../../../convex/_generated/dataModel";
 import Card from "@/components/Atoms/Card";
 import { useRouter } from "next/router";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 const UserList = () => {
   const router = useRouter();
   const { id } = router.query as { id: Id<"rooms"> };
   const usersInRoom = useQuery(api.rooms.getUsers, { id });
+  const [parent] = useAutoAnimate();
 
   if (!usersInRoom) {
     return (
@@ -23,7 +25,7 @@ const UserList = () => {
   }
 
   return (
-    <ul className="flex flex-col gap-5">
+    <ul ref={parent} className="flex flex-col gap-5">
       {usersInRoom?.map((user) => (
         <li key={user._id}>
           <span
