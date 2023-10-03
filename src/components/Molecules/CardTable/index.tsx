@@ -16,7 +16,7 @@ const CardTable = () => {
   return (
     <ul
       ref={parent}
-      className="grid grid-cols-2 mt-20 md:mt-0 md:grid-cols-4 md:grid-rows-2 gap-5"
+      className="grid grid-cols-2 mt-20 md:mt-0 md:grid-cols-auto md:grid-rows-2 gap-5"
     >
       {users?.map((user) => {
         if (user?.vote === 0) return;
