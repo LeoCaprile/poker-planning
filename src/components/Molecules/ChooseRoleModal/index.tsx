@@ -48,7 +48,7 @@ const ChooseRoleModal = () => {
           onChange={(e) => setUserName(e.target.value)}
           value={name}
           type="text"
-          maxLength={23}
+          maxLength={15}
           placeholder="Please provide your name"
           className={`input input-success w-full max-w-xs ${
             !name && "input-error"

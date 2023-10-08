@@ -11,8 +11,10 @@ type Props = {
 
 const TableCard = ({ name, value, show }: Props) => {
   return (
-    <div className="flex flex-col items-center justify-center text-center">
-      <strong className="text-2xl">{name}</strong>
+    <div className="flex flex-col items-center justify-end text-center ">
+      <strong className="text-xl mb-2 text-ellipsis w-24 overflow-hidden">
+        {name}
+      </strong>
       <div
         className={show ? classNames(styles.card, styles.show) : styles.card}
       >

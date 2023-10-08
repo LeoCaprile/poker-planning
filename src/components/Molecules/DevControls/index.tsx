@@ -31,7 +31,7 @@ const DevControls = () => {
   }
 
   return (
-    <div className="flex gap-5 md:m-5 mt-5 text-black font-medium">
+    <div className="flex md:justify-center gap-5 py-4 overflow-x-scroll text-black font-medium">
       {room &&
         room?.votesValues?.map((value: string | number) => (
           <VoteCard

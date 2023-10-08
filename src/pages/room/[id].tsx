@@ -27,27 +27,19 @@ const RoomPage = () => {
 
   return (
     <ErrorBoundary fallback={<div>An Error has ocurred</div>}>
-      <div className={styles.container}>
-        <div className={styles.usersList + " hidden md:block"}>
+      <div className="flex">
+        <div className="top-0 right-0 m-5 md:max-w-[200px] lg:max-w-xs fixed hidden md:block">
           <UserList />
         </div>
 
-        <div className={styles.main}>
+        <div className="w-full md:mr-56 lg:mr-72 lg:ml-20 md:p-5 md:mt-12">
           <CardTable />
         </div>
 
-        {role === "dev" && (
-          <div className={styles.controls}>
-            <DevControls />
-          </div>
-        )}
-
-        {role === "po" && (
-          <div className={styles.controls}>
-            <PoControls />
-          </div>
-        )}
-
+        <div className="fixed bottom-0 w-full mb-5">
+          {role === "dev" && <DevControls />}
+          {role === "po" && <PoControls />}
+        </div>
         <ChooseRoleModal />
       </div>
     </ErrorBoundary>

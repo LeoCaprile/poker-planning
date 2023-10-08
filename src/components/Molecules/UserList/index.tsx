@@ -27,9 +27,9 @@ const UserList = () => {
   return (
     <ul ref={parent} className="flex flex-col gap-5">
       {usersInRoom?.map((user) => (
-        <li key={user._id}>
-          <span
-            className={`badge badge-lg ${
+        <li className=" whitespace-nowrap" key={user._id}>
+          <div
+            className={`badge badge-lg  ${
               user.state === "idle"
                 ? "badge-warning"
                 : user.state === "ready"
@@ -37,8 +37,20 @@ const UserList = () => {
                 : "badge-error"
             }`}
           >
-            {user.name} - {user.role}
-          </span>
+            <p>
+              <span className="block md:max-w-[5rem] lg:max-w-[9rem] text-ellipsis overflow-hidden">
+                {user.name}
+              </span>
+            </p>
+          </div>
+
+          <div className="badge badge-lg badge-primary ml-2">
+            <p>
+              <span className="block text-ellipsis overflow-hidden">
+                {user.role}
+              </span>
+            </p>
+          </div>
         </li>
       ))}
     </ul>
