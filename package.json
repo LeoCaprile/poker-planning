@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "release": "release-it"
   },
   "dependencies": {
     "@formkit/auto-animate": "^0.8.0",
@@ -34,6 +35,13 @@
   },
   "devDependencies": {
     "@types/react-beforeunload": "^2.1.1",
-    "daisyui": "latest"
+    "bun-types": "latest",
+    "daisyui": "latest",
+    "release-it": "^17.0.0"
+  },
+  "module": "index.ts",
+  "type": "module",
+  "peerDependencies": {
+    "typescript": "^5.0.0"
   }
 }
