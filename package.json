@@ -34,16 +34,21 @@
     "zustand": "^4.4.1"
   },
   "devDependencies": {
+    "@commitlint/cli": "^18.4.1",
+    "@commitlint/config-conventional": "^18.4.0",
     "@release-it/conventional-changelog": "^8.0.1",
     "@types/react-beforeunload": "^2.1.1",
     "bun-types": "latest",
     "daisyui": "latest",
+    "husky": "^8.0.3",
     "release-it": "17.0.0"
   },
   "release-it": {
     "plugins": {
       "@release-it/conventional-changelog": {
-        "preset": "angular",
+        "preset": {
+          "name": "angular"
+        },
         "infile": "CHANGELOG.md"
       }
     }
