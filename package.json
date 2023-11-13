@@ -1,12 +1,13 @@
 {
   "name": "poker-planning",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "release": "release-it"
   },
   "dependencies": {
     "@formkit/auto-animate": "^0.8.0",
@@ -33,7 +34,21 @@
     "zustand": "^4.4.1"
   },
   "devDependencies": {
+    "@release-it/conventional-changelog": "^8.0.1",
     "@types/react-beforeunload": "^2.1.1",
-    "daisyui": "latest"
+    "bun-types": "latest",
+    "daisyui": "latest",
+    "release-it": "17.0.0"
+  },
+  "release-it": {
+    "plugins": {
+      "@release-it/conventional-changelog": {
+        "preset": "angular",
+        "infile": "CHANGELOG.md"
+      }
+    }
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
   }
 }
