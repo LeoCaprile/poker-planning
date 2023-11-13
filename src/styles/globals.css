@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+*::-webkit-scrollbar {
+  display: none;
+}
+
+* {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 @media (max-width: 425px) {
   html,
   body {
@@ -10,9 +19,17 @@
   }
 }
 
+@media (min-width: 426px) and (max-width: 768px) {
+  html,
+  body {
+    width: 100% !important;
+    height: calc(100% + 4rem) !important;
+  }
+}
+
 html,
 body {
   background-color: #ffff;
   width: 100%;
-  height: calc(100% + 2rem);
+  height: 100%;
 }

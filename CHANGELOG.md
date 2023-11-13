@@ -1,5 +1,12 @@
 
 
+## 0.2.1 (2023-11-13)
+
+
+### Bug Fixes
+
+* height of screen depending on responsiveness ([de324e8](https://github.com/LeoCaprile/poker-planning/commit/de324e8f7d0d7166ddab5367003de7133e734164))
+
 # 0.2.0 (2023-11-13)
 
 
