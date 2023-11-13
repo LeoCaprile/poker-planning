@@ -38,18 +38,8 @@
     "@types/react-beforeunload": "^2.1.1",
     "bun-types": "latest",
     "daisyui": "latest",
-    "release-it": "^17.0.0"
+    "release-it": "17.0.0"
   },
-  "release-it": {
-    "plugins": {
-      "@release-it/conventional-changelog": {
-        "preset": "angular",
-        "infile": "CHANGELOG.md"
-      }
-    }
-  },
-  "module": "index.ts",
-  "type": "module",
   "peerDependencies": {
     "typescript": "^5.0.0"
   }
