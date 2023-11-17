@@ -1,5 +1,12 @@
 
 
+## [0.3.1](https://github.com/LeoCaprile/poker-planning/compare/0.3.0...0.3.1) (2023-11-17)
+
+
+### Bug Fixes
+
+* changed copyRoomURLToClipboard component to room page ([6acff4e](https://github.com/LeoCaprile/poker-planning/commit/6acff4e041e1a157eacbf135fed2d979d73ca5b8))
+
 # 0.3.0 (2023-11-17)
 
 
