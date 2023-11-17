@@ -1,5 +1,14 @@
 
 
+# 0.3.0 (2023-11-17)
+
+
+### Features
+
+* added copy to clipboard button ([4d41509](https://github.com/LeoCaprile/poker-planning/commit/4d41509f1538be5059be1fd1009c816c8f1c6d8d))
+* added text 'copied' when user clicks the clipboard button ([ff944fa](https://github.com/LeoCaprile/poker-planning/commit/ff944fa87dd90df11144396381476997dd4ff176))
+* added tooltip to room clipboard ([a4d4601](https://github.com/LeoCaprile/poker-planning/commit/a4d460102333c7fee84f0d27ac50f7b516f4dd31))
+
 ## 0.2.1 (2023-11-13)
 
 
