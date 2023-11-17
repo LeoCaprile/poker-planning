@@ -13,6 +13,7 @@ import { Id } from "../../../convex/_generated/dataModel";
 import { useRouter } from "next/router";
 import { useUserStore } from "@/store/userStore";
 import useRemoveUser from "@/hooks/useRemoveUser";
+import RoomToClipboard from "@/components/Atoms/RoomToClipboard";
 
 const RoomPage = () => {
   const router = useRouter();
@@ -27,6 +28,7 @@ const RoomPage = () => {
 
   return (
     <ErrorBoundary fallback={<div>An Error has ocurred</div>}>
+      <RoomToClipboard />
       <div className="flex">
         <div className="top-0 right-0 m-5 md:max-w-[200px] lg:max-w-xs fixed hidden md:block">
           <UserList />
