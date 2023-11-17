@@ -16,16 +16,16 @@ const RoomToClipboard = () => {
   }, [copy]);
 
   return (
-    <button
-      className="btn btn-info btn-circle absolute ml-5 mt-20"
-      onClick={handleOnClick}
-    >
-      {copy ? (
-        <FiCheck className="w-5 h-5 text-white" />
-      ) : (
-        <FiCopy className="w-5 h-5" />
-      )}
-    </button>
+    <div className="flex flex-col absolute ml-5 mt-20">
+      <button className="btn btn-info btn-circle " onClick={handleOnClick}>
+        {copy ? (
+          <FiCheck className="w-5 h-5 text-white" />
+        ) : (
+          <FiCopy className="w-5 h-5" />
+        )}
+      </button>
+      {copy && <span className="text-sm tml-2">Copied!</span>}
+    </div>
   );
 };
 
