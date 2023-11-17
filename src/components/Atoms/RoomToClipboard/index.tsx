@@ -16,7 +16,10 @@ const RoomToClipboard = () => {
   }, [copy]);
 
   return (
-    <div className="flex flex-col absolute ml-5 mt-20">
+    <div
+      className="flex flex-col absolute ml-5 mt-20 tooltip tooltip-right"
+      data-tip="Copy Room URL"
+    >
       <button className="btn btn-info btn-circle " onClick={handleOnClick}>
         {copy ? (
           <FiCheck className="w-5 h-5 text-white" />
