@@ -1,6 +1,14 @@
 import { v } from "convex/values";
-import { mutation, query } from "./_generated/server";
+import {
+  action,
+  internalMutation,
+  internalQuery,
+  mutation,
+  query,
+} from "./_generated/server";
 import { Id } from "./_generated/dataModel";
+import { internal } from "./_generated/api";
+import { checkIfDateIsOneMonthOld } from "../utils";
 
 export const get = query({
   args: { id: v.string() },
@@ -61,5 +69,32 @@ export const resetVotes = mutation({
       ) ?? [],
       ctx.db.patch(args.id, { showVotes: false }),
     ]);
+  },
+});
+
+export const getOldRooms = internalQuery({
+  handler: async (ctx) => {
+    const rooms = await ctx.db.query("rooms").collect();
+    return rooms.filter((room) => checkIfDateIsOneMonthOld(room._creationTime));
+  },
+});
+
+export const deleteOldRooms = internalMutation({
+  args: { rooms: v.array(v.id("rooms")) },
+  handler: async (ctx, args) => {
+    args.rooms.forEach((id: Id<"rooms">) => {
+      ctx.db.delete(id);
+    });
+  },
+});
+
+export const deleteIdleRooms = action({
+  handler: async (ctx) => {
+    const rooms = await ctx.runQuery(internal.rooms.getOldRooms);
+    if (rooms.length > 0) {
+      await ctx.runMutation(internal.rooms.deleteOldRooms, {
+        rooms: rooms.map((room) => room._id),
+      });
+    }
   },
 });
