@@ -1,5 +1,12 @@
 
 
+# 0.5.0 (2023-11-24)
+
+
+### Features
+
+* save theme choice in localstorage for persistance ([b0f21fb](https://github.com/LeoCaprile/poker-planning/commit/b0f21fb45c436019dd64df9791e9704fc84adc75))
+
 # 0.4.0 (2023-11-24)
 
 
