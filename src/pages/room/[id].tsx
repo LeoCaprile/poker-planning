@@ -1,19 +1,16 @@
 import { useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
-import UserList from "@/components/Molecules/UserList";
-import ChooseRoleModal from "@/components/Molecules/ChooseRoleModal";
-import DevControls from "@/components/Molecules/DevControls";
-import styles from "./room.module.css";
+import UserList from "@/modules/User/UserList";
 import CardTable from "@/components/Molecules/CardTable";
-import PoControls from "@/components/Molecules/PoControls";
 import { ErrorBoundary } from "react-error-boundary";
 import Loader from "@/components/Atoms/Loader";
 import Page404 from "@/components/Atoms/404";
 import { Id } from "../../../convex/_generated/dataModel";
 import { useRouter } from "next/router";
-import { useUserStore } from "@/store/userStore";
+import { useUserStore } from "@/modules/User/store/userStore";
 import useRemoveUser from "@/hooks/useRemoveUser";
 import RoomToClipboard from "@/components/Atoms/RoomToClipboard";
+import UserControls from "@/modules/User/UserControls/UserControls";
 
 const RoomPage = () => {
   const router = useRouter();
@@ -38,11 +35,7 @@ const RoomPage = () => {
           <CardTable />
         </div>
 
-        <div className="fixed bottom-0 w-full mb-5">
-          {role === "dev" && <DevControls />}
-          {role === "po" && <PoControls />}
-        </div>
-        <ChooseRoleModal />
+        <UserControls role={role} />
       </div>
     </ErrorBoundary>
   );

@@ -4,12 +4,13 @@ import React from "react";
 import { Id } from "../../../../convex/_generated/dataModel";
 import { useMutation, useQuery } from "convex/react";
 import { api } from "../../../../convex/_generated/api";
-import { Role, useUserStore } from "@/store/userStore";
+import { useUserStore } from "@/modules/User/store/userStore";
 import toast from "react-hot-toast";
+import { UserRoleT, UserRoles } from "../types";
 
 const DEV_USER_ROLE_LIMIT = 12;
 
-const ChooseRoleModal = () => {
+export const ChooseRoleModal = () => {
   const router = useRouter();
   const { id } = router.query as { id: Id<"rooms"> };
   const users = useQuery(api.rooms.getUsers, { id });
@@ -24,7 +25,7 @@ const ChooseRoleModal = () => {
       return;
     }
 
-    const role = e.currentTarget.value as Role;
+    const role = e.currentTarget.value as UserRoleT;
 
     const userIdFromback = await createUser({
       name,
@@ -36,7 +37,8 @@ const ChooseRoleModal = () => {
   }
 
   const hasDevUsersLimit =
-    users?.filter((user) => user?.role === "dev").length >= DEV_USER_ROLE_LIMIT;
+    users?.filter((user) => user?.role === UserRoles.dev).length >=
+    DEV_USER_ROLE_LIMIT;
 
   return (
     <Modal open={modal} title="Choose your role">
@@ -63,7 +65,7 @@ const ChooseRoleModal = () => {
           <button
             disabled={hasDevUsersLimit}
             onClick={selectRole}
-            value="dev"
+            value={UserRoles.dev}
             className="btn btn-lg btn-info w-full"
           >
             Dev
@@ -71,14 +73,14 @@ const ChooseRoleModal = () => {
         </div>
         <button
           onClick={selectRole}
-          value="po"
+          value={UserRoles.po}
           className="btn btn-lg btn-warning"
         >
           PO
         </button>
         <button
           onClick={selectRole}
-          value="viewer"
+          value={UserRoles.viewer}
           className="btn btn-lg btn-success"
         >
           Viewer
@@ -87,5 +89,3 @@ const ChooseRoleModal = () => {
     </Modal>
   );
 };
-
-export default ChooseRoleModal;

@@ -1,19 +1,18 @@
 import { create } from "zustand";
-
-export type Role = "dev" | "po" | "viewer";
+import { UserRoleT, UserRoles } from "../types";
 
 type UserStore = {
   name: string;
-  role: Role;
+  role: UserRoleT;
   userId: string;
   modal: boolean;
   setUserName: (name: string) => void;
-  setUser: (user: { role: Role; userId: string; modal: boolean }) => void;
+  setUser: (user: { role: UserRoleT; userId: string; modal: boolean }) => void;
 };
 
 export const useUserStore = create<UserStore>((set) => ({
   name: "",
-  role: "viewer",
+  role: UserRoles.viewer,
   userId: "",
   modal: true,
   setUserName: (name: string) => set({ name }),
