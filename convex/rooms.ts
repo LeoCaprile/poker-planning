@@ -8,6 +8,7 @@ import {
 } from "./_generated/server";
 import { Id } from "./_generated/dataModel";
 import { internal } from "./_generated/api";
+import { checkIfDateIsOneMonthOld } from "../utils";
 
 export const get = query({
   args: { id: v.string() },
@@ -74,13 +75,7 @@ export const resetVotes = mutation({
 export const getOldRooms = internalQuery({
   handler: async (ctx) => {
     const rooms = await ctx.db.query("rooms").collect();
-
-    return rooms.filter((room) => {
-      const now = new Date();
-      const diff = now.getTime() - room._creationTime;
-      const month = 1000 * 60 * 60 * 24 * 30;
-      return diff >= month;
-    });
+    return rooms.filter((room) => checkIfDateIsOneMonthOld(room._creationTime));
   },
 });
 
