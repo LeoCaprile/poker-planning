@@ -1,12 +1,12 @@
-import TableCard from "@/components/Atoms/TableCard";
+import EstimationCard from "@/modules/Room/EstimationTable/EstimationCard";
 import { useQuery } from "convex/react";
 import React from "react";
-import { api } from "../../../../convex/_generated/api";
-import { Id } from "../../../../convex/_generated/dataModel";
+import { api } from "@convex/_generated/api";
+import { Id } from "@convex/_generated/dataModel";
 import { useRouter } from "next/router";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 
-const CardTable = () => {
+const EstimationTable = () => {
   const router = useRouter();
   const { id } = router.query as { id: Id<"rooms"> };
   const room = useQuery(api.rooms.get, { id });
@@ -22,7 +22,7 @@ const CardTable = () => {
         if (user?.vote === 0) return;
         if (typeof user !== undefined || typeof user !== null) {
           return (
-            <TableCard
+            <EstimationCard
               key={user?._id}
               name={user.name}
               show={room.showVotes}
@@ -36,4 +36,4 @@ const CardTable = () => {
   );
 };
 
-export default CardTable;
+export default EstimationTable;

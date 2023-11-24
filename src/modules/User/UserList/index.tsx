@@ -1,10 +1,11 @@
 import { useQuery } from "convex/react";
 import React from "react";
-import { api } from "../../../../convex/_generated/api";
-import { Id } from "../../../../convex/_generated/dataModel";
+import { api } from "@convex/_generated/api";
+import { Id } from "@convex/_generated/dataModel";
 import Card from "@/components/Atoms/Card";
 import { useRouter } from "next/router";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
+import { UserState } from "../types";
 
 const UserList = () => {
   const router = useRouter();
@@ -30,11 +31,10 @@ const UserList = () => {
         <li className=" whitespace-nowrap" key={user._id}>
           <div
             className={`badge badge-lg  ${
-              user.state === "idle"
-                ? "badge-warning"
-                : user.state === "ready"
-                ? "badge-success"
-                : "badge-error"
+              {
+                [UserState.idle]: "badge-warning",
+                [UserState.ready]: "badge-success",
+              }[user.state] ?? "badge-danger"
             }`}
           >
             <p>

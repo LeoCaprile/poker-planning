@@ -1,11 +1,11 @@
 import Card from "@/components/Atoms/Card";
 import { useMutation, useQuery } from "convex/react";
 import React from "react";
-import { api } from "../../../../convex/_generated/api";
+import { api } from "../../../../../convex/_generated/api";
 import { useRouter } from "next/router";
-import { Id } from "../../../../convex/_generated/dataModel";
+import { Id } from "../../../../../convex/_generated/dataModel";
 
-const PoControls = () => {
+export const PoControls = () => {
   const router = useRouter();
   const { id } = router.query as { id: Id<"rooms"> };
 
@@ -46,5 +46,3 @@ const PoControls = () => {
     </Card>
   );
 };
-
-export default PoControls;

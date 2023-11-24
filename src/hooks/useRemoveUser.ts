@@ -1,4 +1,4 @@
-import { useUserStore } from "@/store/userStore";
+import { useUserStore } from "@/modules/User/store/userStore";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { Id } from "../../convex/_generated/dataModel";

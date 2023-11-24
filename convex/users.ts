@@ -2,6 +2,7 @@ import { v } from "convex/values";
 import { httpAction, mutation, query } from "./_generated/server";
 import { Id } from "./_generated/dataModel";
 import { api } from "./_generated/api";
+import { UserState } from "@/modules/User/types";
 
 export const get = query({
   args: { id: v.id("users") },
@@ -31,7 +32,7 @@ export const vote = mutation({
     vote: v.number(),
   },
   handler: async (ctx, { id, vote }) => {
-    await ctx.db.patch(id, { vote, state: "ready" });
+    await ctx.db.patch(id, { vote, state: UserState.ready });
   },
 });
 

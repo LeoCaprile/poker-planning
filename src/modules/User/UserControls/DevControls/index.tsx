@@ -1,12 +1,12 @@
-import VoteCard from "@/components/Atoms/VoteCard";
-import { api } from "../../../../convex/_generated/api";
+import VoteCard from "@/modules/User/UserControls/DevControls/VoteCard";
+import { api } from "../../../../../convex/_generated/api";
 import { useMutation, useQuery } from "convex/react";
-import { Id } from "../../../../convex/_generated/dataModel";
+import { Id } from "../../../../../convex/_generated/dataModel";
 import toast from "react-hot-toast";
 import { useRouter } from "next/router";
-import { useUserStore } from "@/store/userStore";
+import { useUserStore } from "@/modules/User/store/userStore";
 
-const DevControls = () => {
+export const DevControls = () => {
   const router = useRouter();
   const { id: roomId } = router.query as { id: Id<"rooms"> };
   const userId = useUserStore((store) => store.userId) as Id<"users">;
@@ -44,5 +44,3 @@ const DevControls = () => {
     </div>
   );
 };
-
-export default DevControls;

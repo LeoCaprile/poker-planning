@@ -1,19 +1,16 @@
 import { useQuery } from "convex/react";
-import { api } from "../../../convex/_generated/api";
-import UserList from "@/components/Molecules/UserList";
-import ChooseRoleModal from "@/components/Molecules/ChooseRoleModal";
-import DevControls from "@/components/Molecules/DevControls";
-import styles from "./room.module.css";
-import CardTable from "@/components/Molecules/CardTable";
-import PoControls from "@/components/Molecules/PoControls";
+import { api } from "@convex/_generated/api";
+import UserList from "@/modules/User/UserList";
+import EstimationTable from "@/modules/Room/EstimationTable";
 import { ErrorBoundary } from "react-error-boundary";
 import Loader from "@/components/Atoms/Loader";
 import Page404 from "@/components/Atoms/404";
-import { Id } from "../../../convex/_generated/dataModel";
+import { Id } from "@convex/_generated/dataModel";
 import { useRouter } from "next/router";
-import { useUserStore } from "@/store/userStore";
+import { useUserStore } from "@/modules/User/store/userStore";
 import useRemoveUser from "@/hooks/useRemoveUser";
-import RoomToClipboard from "@/components/Atoms/RoomToClipboard";
+import RoomToClipboard from "@/modules/ToolBar/RoomToClipboard";
+import UserControls from "@/modules/User/UserControls/UserControls";
 
 const RoomPage = () => {
   const router = useRouter();
@@ -35,14 +32,10 @@ const RoomPage = () => {
         </div>
 
         <div className="w-full md:mr-56 lg:mr-72 lg:ml-20 md:p-5 md:mt-12">
-          <CardTable />
+          <EstimationTable />
         </div>
 
-        <div className="fixed bottom-0 w-full mb-5">
-          {role === "dev" && <DevControls />}
-          {role === "po" && <PoControls />}
-        </div>
-        <ChooseRoleModal />
+        <UserControls role={role} />
       </div>
     </ErrorBoundary>
   );

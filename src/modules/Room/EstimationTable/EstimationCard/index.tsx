@@ -1,6 +1,6 @@
 import React from "react";
-import VoteCard from "../VoteCard";
-import styles from "./TableCard.module.css";
+import VoteCard from "../../../User/UserControls/DevControls/VoteCard";
+import styles from "./EstimationCard.module.css";
 import classNames from "classnames";
 
 type Props = {
@@ -9,7 +9,7 @@ type Props = {
   show: boolean;
 };
 
-const TableCard = ({ name, value, show }: Props) => {
+const EstimationCard = ({ name, value, show }: Props) => {
   return (
     <div className="flex flex-col items-center justify-end text-center ">
       <strong className="text-xl mb-2 text-ellipsis w-24 overflow-hidden">
@@ -29,4 +29,4 @@ const TableCard = ({ name, value, show }: Props) => {
   );
 };
 
-export default TableCard;
+export default EstimationCard;
