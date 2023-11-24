@@ -1,18 +1,19 @@
-//SwitchTheme.tsx
-
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { FiMoon, FiSun } from "react-icons/fi";
+import { useSwitchThemeStore } from "../store";
+import { Theme } from "../types";
 
 const SwitchTheme = () => {
-  //we store the theme in localStorage to preserve the state on next visit with an initial theme of dark.
-  const [theme, setTheme] = useState("light");
+  const { setTheme, theme } = useSwitchThemeStore();
 
-  //toggles the theme
   const toggleTheme = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
+    setTheme(theme === Theme.DARK ? Theme.LIGHT : Theme.DARK);
   };
 
-  //modify data-theme attribute on document.body when theme changes
+  useEffect(() => {
+    useSwitchThemeStore.persist.rehydrate();
+  }, []);
+
   useEffect(() => {
     const body = document.body;
     body.setAttribute("data-theme", theme);
@@ -23,7 +24,7 @@ const SwitchTheme = () => {
       className="btn btn-info btn-circle absolute ml-5 mt-5"
       onClick={toggleTheme}
     >
-      {theme === "light" ? (
+      {theme === Theme.LIGHT ? (
         <FiMoon className="w-5 h-5" />
       ) : (
         <FiSun className="w-5 h-5" />
