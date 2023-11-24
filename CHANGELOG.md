@@ -1,5 +1,12 @@
 
 
+# 0.4.0 (2023-11-24)
+
+
+### Features
+
+* added cron job to delete old rooms ([32a45ca](https://github.com/LeoCaprile/poker-planning/commit/32a45ca84d930be17b2d723b01541c1429fc53eb))
+
 ## [0.3.1](https://github.com/LeoCaprile/poker-planning/compare/0.3.0...0.3.1) (2023-11-17)
 
 
