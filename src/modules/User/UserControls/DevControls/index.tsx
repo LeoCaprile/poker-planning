@@ -1,4 +1,4 @@
-import VoteCard from "@/components/Atoms/VoteCard";
+import VoteCard from "@/modules/User/UserControls/DevControls/VoteCard";
 import { api } from "../../../../../convex/_generated/api";
 import { useMutation, useQuery } from "convex/react";
 import { Id } from "../../../../../convex/_generated/dataModel";

@@ -1,15 +1,15 @@
 import { useQuery } from "convex/react";
-import { api } from "../../../convex/_generated/api";
+import { api } from "@convex/_generated/api";
 import UserList from "@/modules/User/UserList";
-import CardTable from "@/components/Molecules/CardTable";
+import EstimationTable from "@/modules/Room/EstimationTable";
 import { ErrorBoundary } from "react-error-boundary";
 import Loader from "@/components/Atoms/Loader";
 import Page404 from "@/components/Atoms/404";
-import { Id } from "../../../convex/_generated/dataModel";
+import { Id } from "@convex/_generated/dataModel";
 import { useRouter } from "next/router";
 import { useUserStore } from "@/modules/User/store/userStore";
 import useRemoveUser from "@/hooks/useRemoveUser";
-import RoomToClipboard from "@/components/Atoms/RoomToClipboard";
+import RoomToClipboard from "@/modules/ToolBar/RoomToClipboard";
 import UserControls from "@/modules/User/UserControls/UserControls";
 
 const RoomPage = () => {
@@ -32,7 +32,7 @@ const RoomPage = () => {
         </div>
 
         <div className="w-full md:mr-56 lg:mr-72 lg:ml-20 md:p-5 md:mt-12">
-          <CardTable />
+          <EstimationTable />
         </div>
 
         <UserControls role={role} />

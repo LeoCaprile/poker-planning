@@ -1,9 +1,9 @@
 import Modal from "@/components/Atoms/Modal";
 import { useRouter } from "next/router";
 import React from "react";
-import { Id } from "../../../../convex/_generated/dataModel";
+import { Id } from "@convex/_generated/dataModel";
 import { useMutation, useQuery } from "convex/react";
-import { api } from "../../../../convex/_generated/api";
+import { api } from "@convex/_generated/api";
 import { useUserStore } from "@/modules/User/store/userStore";
 import toast from "react-hot-toast";
 import { UserRoleT, UserRoles } from "../types";

@@ -1,4 +1,4 @@
-import SwitchTheme from "@/components/Atoms/SwitchTheme";
+import SwitchTheme from "@/modules/ToolBar/SwitchTheme";
 import ConvexClientProvider from "@/providers/ConvexClientProvider";
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";

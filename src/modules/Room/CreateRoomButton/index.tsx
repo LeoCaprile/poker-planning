@@ -2,7 +2,7 @@ import React from "react";
 import { useMutation } from "convex/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { api } from "../../../../convex/_generated/api";
+import { api } from "@convex/_generated/api";
 
 const CreateRoomButton = () => {
   const [loading, setLoading] = useState(false);

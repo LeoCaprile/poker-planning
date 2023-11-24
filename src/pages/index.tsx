@@ -1,4 +1,4 @@
-import CreateRoomButton from "@/components/Molecules/CreateRoomButton";
+import CreateRoomButton from "@/modules/Room/CreateRoomButton";
 
 export default function Home() {
   return (
