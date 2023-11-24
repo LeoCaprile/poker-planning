@@ -9,6 +9,7 @@ import {
 import { Id } from "./_generated/dataModel";
 import { internal } from "./_generated/api";
 import { checkIfDateIsOneMonthOld } from "../utils";
+import { UserState } from "@/modules/User/types";
 
 export const get = query({
   args: { id: v.string() },
@@ -65,7 +66,7 @@ export const resetVotes = mutation({
     Promise.all([
       room?.users.map(
         async (userId: Id<"users">) =>
-          await ctx.db.patch(userId, { vote: 0, state: "idle" })
+          await ctx.db.patch(userId, { vote: 0, state: UserState.idle })
       ) ?? [],
       ctx.db.patch(args.id, { showVotes: false }),
     ]);

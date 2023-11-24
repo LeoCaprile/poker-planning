@@ -6,7 +6,7 @@ import { useMutation, useQuery } from "convex/react";
 import { api } from "@convex/_generated/api";
 import { useUserStore } from "@/modules/User/store/userStore";
 import toast from "react-hot-toast";
-import { UserRoleT, UserRoles } from "../types";
+import { UserRoleT, UserRoles, UserState } from "../types";
 
 const DEV_USER_ROLE_LIMIT = 12;
 
@@ -31,7 +31,7 @@ export const ChooseRoleModal = () => {
       name,
       role,
       roomId: id,
-      state: "idle",
+      state: UserState.idle,
     });
     setUser({ userId: userIdFromback, role, modal: false });
   }
