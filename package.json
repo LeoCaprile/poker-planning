@@ -38,6 +38,7 @@
   "devDependencies": {
     "@release-it/conventional-changelog": "^8.0.1",
     "@types/react-beforeunload": "^2.1.1",
+    "@types/web": "^0.0.120",
     "bun-types": "^1.0.14",
     "daisyui": "latest",
     "release-it": "17.0.0"
