@@ -2,9 +2,9 @@ import { cronJobs } from "convex/server";
 import { api } from "./_generated/api";
 
 const crons = cronJobs();
-crons.interval(
+crons.monthly(
   "delete rooms which are one month old",
-  { minutes: 1 },
+  { day: 0, hourUTC: 0, minuteUTC: 0 },
   api.rooms.deleteIdleRooms
 );
 export default crons;
