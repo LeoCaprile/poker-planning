@@ -19,7 +19,7 @@ export default function useRemoveUser() {
         JSON.stringify({ id: userId, roomId: id })
       );
     };
-  }, [userId]);
+  }, [userId, id, REMOVEUSER_ENDPOINT]);
 
   return null;
 }
