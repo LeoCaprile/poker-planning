@@ -11,7 +11,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <Toaster position="top-left" reverseOrder={false} />
       <SwitchTheme />
       <Component {...pageProps} />
-      <span className="absolute top-0 right-0">version {version} </span>
+      <span className="absolute top-0 right-0">v{version}</span>
     </ConvexClientProvider>
   );
 }
