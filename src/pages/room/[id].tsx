@@ -4,13 +4,16 @@ import UserList from "@/modules/User/UserList";
 import EstimationTable from "@/modules/Room/EstimationTable";
 import { ErrorBoundary } from "react-error-boundary";
 import Loader from "@/components/Atoms/Loader";
-import Page404 from "@/components/Atoms/404";
 import { Id } from "@convex/_generated/dataModel";
 import { useRouter } from "next/router";
 import { useUserStore } from "@/modules/User/store/userStore";
 import useRemoveUser from "@/hooks/useRemoveUser";
 import RoomToClipboard from "@/modules/ToolBar/RoomToClipboard";
 import UserControls from "@/modules/User/UserControls/UserControls";
+import dynamic from "next/dynamic";
+const Page404 = dynamic(() => import("@/components/Atoms/404"), {
+  loading: () => <Loader />,
+});
 
 const RoomPage = () => {
   const router = useRouter();

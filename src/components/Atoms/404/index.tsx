@@ -1,5 +1,4 @@
 import CreateRoomButton from "@/modules/Room/CreateRoomButton";
-import React from "react";
 import { PiSmileySadBold } from "react-icons/pi";
 const Page404 = () => {
   return (

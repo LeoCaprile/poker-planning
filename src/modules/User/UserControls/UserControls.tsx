@@ -1,7 +1,8 @@
+import dynamic from "next/dynamic";
 import { ChooseRoleModal } from "../ChooseRoleModal";
 import { UserRoleT, UserRoles } from "../types";
-import { DevControls } from "./DevControls";
-import { PoControls } from "./PoControls";
+const DevControls = dynamic(() => import("./DevControls"));
+const PoControls = dynamic(() => import("./PoControls"));
 
 interface Props {
   role: UserRoleT;

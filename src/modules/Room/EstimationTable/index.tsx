@@ -1,10 +1,11 @@
-import EstimationCard from "@/modules/Room/EstimationTable/EstimationCard";
 import { useQuery } from "convex/react";
+import dynamic from "next/dynamic";
 import React from "react";
 import { api } from "@convex/_generated/api";
 import { Id } from "@convex/_generated/dataModel";
 import { useRouter } from "next/router";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
+const EstimationCard = dynamic(() => import("./EstimationCard"));
 
 const EstimationTable = () => {
   const router = useRouter();

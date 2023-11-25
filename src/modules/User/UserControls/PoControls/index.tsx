@@ -5,7 +5,7 @@ import { api } from "../../../../../convex/_generated/api";
 import { useRouter } from "next/router";
 import { Id } from "../../../../../convex/_generated/dataModel";
 
-export const PoControls = () => {
+const PoControls = () => {
   const router = useRouter();
   const { id } = router.query as { id: Id<"rooms"> };
 
@@ -46,3 +46,5 @@ export const PoControls = () => {
     </Card>
   );
 };
+
+export default PoControls;
