@@ -1,5 +1,17 @@
 
 
+## 0.5.2 (2023-11-25)
+
+
+### Bug Fixes
+
+* changed version display on app ([9d3fb02](https://github.com/LeoCaprile/poker-planning/commit/9d3fb0202d8cb14299cfb63a771974663cabe1e4))
+
+
+### Performance Improvements
+
+* added dynamic import of components for better performance ([50a078e](https://github.com/LeoCaprile/poker-planning/commit/50a078e72f2736f8e3ab1de04490df98247d408a))
+
 ## 0.5.1 (2023-11-25)
 
 
