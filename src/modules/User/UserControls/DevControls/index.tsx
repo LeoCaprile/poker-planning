@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/router";
 import { useUserStore } from "@/modules/User/store/userStore";
 
-export const DevControls = () => {
+const DevControls = () => {
   const router = useRouter();
   const { id: roomId } = router.query as { id: Id<"rooms"> };
   const userId = useUserStore((store) => store.userId) as Id<"users">;
@@ -44,3 +44,5 @@ export const DevControls = () => {
     </div>
   );
 };
+
+export default DevControls;
