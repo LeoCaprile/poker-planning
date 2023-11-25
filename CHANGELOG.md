@@ -1,5 +1,12 @@
 
 
+## 0.5.1 (2023-11-25)
+
+
+### Bug Fixes
+
+* added missing deps to remove user useEffect ([a9f4f20](https://github.com/LeoCaprile/poker-planning/commit/a9f4f203eca4dce8db8382d797248b73166e0b14))
+
 # 0.5.0 (2023-11-24)
 
 
