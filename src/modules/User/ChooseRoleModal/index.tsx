@@ -1,6 +1,5 @@
 import Modal from "@/components/Atoms/Modal";
 import { useRouter } from "next/router";
-import React from "react";
 import { Id } from "@convex/_generated/dataModel";
 import { useMutation, useQuery } from "convex/react";
 import { api } from "@convex/_generated/api";
@@ -8,7 +7,7 @@ import { useUserStore } from "@/modules/User/store/userStore";
 import { UserRoleT, UserRoles, UserState } from "../types";
 import toast from "react-hot-toast";
 
-const DEV_USER_ROLE_LIMIT = 12;
+const DEV_USER_ROLE_LIMIT = 6;
 
 export const ChooseRoleModal = () => {
   const router = useRouter();
@@ -27,13 +26,13 @@ export const ChooseRoleModal = () => {
 
     const role = e.currentTarget.value as UserRoleT;
 
-    const userIdFromback = await createUser({
+    const userIdFromBack = await createUser({
       name,
       role,
       roomId: id,
       state: UserState.idle,
     });
-    setUser({ userId: userIdFromback, role, modal: false });
+    setUser({ userId: userIdFromBack, role, modal: false });
   }
 
   const hasDevUsersLimit =
