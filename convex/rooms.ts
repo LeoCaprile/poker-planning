@@ -26,6 +26,63 @@ export const showCards = mutation({
   args: { id: v.id("rooms") },
   handler: async (ctx, args) => {
     const room = await ctx.db.get(args.id);
+
+    const users = await Promise.all(
+      room?.users.map(
+        async (userId: Id<"users">) => await ctx.db.get(userId)
+      ) ?? []
+    );
+
+    if (!room?.showVotes && users?.length > 0) {
+      const dict: Record<number, Array<string>> = {};
+      const usersWithVotes = users?.filter((user) => user?.vote !== 0);
+      const votes = usersWithVotes?.map((user) => ({
+        vote: user.vote,
+        id: user._id,
+      }));
+
+      // check if theres no equal votes
+      const votesCount = votes?.map((vote) => vote.vote);
+      const uniqueVotes = new Set(votesCount);
+      if (uniqueVotes.size === votesCount.length) {
+        // logic when there is no equal votes
+        console.log("no equal votes");
+      }
+
+      // logic to separate users by their vote
+      for (let i = 0; i < votes.length; i++) {
+        if (dict[votes[i].vote]) {
+          dict[votes[i].vote].push(votes[i].id);
+        } else {
+          dict[votes[i].vote] = [votes[i].id];
+        }
+      }
+
+      // Sort the votes by how much users voted for specific value
+      const sortedVotes = Object.entries(dict).sort((a, b) => {
+        // if theres even votes return the highest value
+        if (a[1].length === b[1].length) {
+          return Number(b[0]) - Number(a[0]);
+        }
+        // if theres uneven votes return the value with less votes
+        return a[1].length - b[1].length;
+      });
+
+      // if theres less than 2 unequal votes
+      if (sortedVotes.length < Math.ceil(users.length / 2)) {
+        console.log("less than 2 unequal votes");
+        const usersSelectedToJustify = sortedVotes[0][1];
+
+        usersSelectedToJustify.forEach(async (userId: Id<"users">) => {
+          await ctx.db.patch(userId, { justifyVote: true });
+        });
+      }
+    } else {
+      users?.forEach(async (user) => {
+        await ctx.db.patch(user._id, { justifyVote: false });
+      });
+    }
+
     await ctx.db.patch(args.id, { showVotes: !room?.showVotes });
   },
 });

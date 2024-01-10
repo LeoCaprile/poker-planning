@@ -12,5 +12,6 @@ export default defineSchema({
     role: v.string(),
     state: v.string(),
     vote: v.float64(),
+    justifyVote: v.optional(v.boolean()),
   }),
 });
