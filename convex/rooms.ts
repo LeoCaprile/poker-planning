@@ -9,7 +9,7 @@ import {
 import { Id } from "./_generated/dataModel";
 import { internal } from "./_generated/api";
 import { checkIfDateIsOneMonthOld } from "../utils";
-import { UserState } from "@/modules/User/types";
+import { UserRoles, UserState } from "@/modules/User/types";
 
 export const get = query({
   args: { id: v.string() },
@@ -35,7 +35,9 @@ export const showCards = mutation({
 
     if (!room?.showVotes && users?.length > 0) {
       const dict: Record<number, Array<string>> = {};
-      const usersWithVotes = users?.filter((user) => user?.vote !== 0);
+      const usersWithVotes = users?.filter(
+        (user) => user?.vote !== 0 && user.role === UserRoles.dev
+      );
       const votes = usersWithVotes?.map((user) => ({
         vote: user.vote,
         id: user._id,
@@ -44,7 +46,9 @@ export const showCards = mutation({
       // check if theres no equal votes
       const votesCount = votes?.map((vote) => vote.vote);
       const uniqueVotes = new Set(votesCount);
-      if (uniqueVotes.size === votesCount.length) {
+
+      //if theres less than 2 players in the room dont run this logic
+      if (usersWithVotes.length > 2 && uniqueVotes.size === votesCount.length) {
         // logic when there is no equal votes
         console.log("no equal votes");
       }
@@ -69,10 +73,8 @@ export const showCards = mutation({
       });
 
       // if theres less than 2 unequal votes
-      if (sortedVotes.length < Math.ceil(users.length / 2)) {
-        console.log("less than 2 unequal votes");
+      if (sortedVotes.length <= usersWithVotes.length) {
         const usersSelectedToJustify = sortedVotes[0][1];
-
         usersSelectedToJustify.forEach(async (userId: Id<"users">) => {
           await ctx.db.patch(userId, { justifyVote: true });
         });
