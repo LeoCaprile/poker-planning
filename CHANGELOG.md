@@ -1,5 +1,18 @@
 
 
+# 0.6.0 (2024-01-12)
+
+
+### Bug Fixes
+
+* fixed detect uneven vote logic ([a6e8f0e](https://github.com/LeoCaprile/poker-planning/commit/a6e8f0ed584ad036d7b639a9ba529a207502564e))
+
+
+### Features
+
+* **app:** added indicator to define which user has to justify ([3b6feab](https://github.com/LeoCaprile/poker-planning/commit/3b6feab32d1eaab3f1e0f538d83bb9f5eaffadf6))
+* **convex/rooms:** added logic to detect uneven votes WIP ([f9c7345](https://github.com/LeoCaprile/poker-planning/commit/f9c734591b164a3236d85531f4bcdf1c66f21982))
+
 ## 0.5.2 (2023-11-25)
 
 

@@ -1,6 +1,5 @@
 import { useQuery } from "convex/react";
 import dynamic from "next/dynamic";
-import React from "react";
 import { api } from "@convex/_generated/api";
 import { Id } from "@convex/_generated/dataModel";
 import { useRouter } from "next/router";
@@ -27,6 +26,7 @@ const EstimationTable = () => {
               key={user?._id}
               name={user.name}
               show={room.showVotes}
+              justify={user?.justifyVote ?? false}
               value={user.vote}
             />
           );
