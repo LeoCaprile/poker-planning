@@ -73,7 +73,7 @@ export const showCards = mutation({
       });
 
       // if theres less than 2 unequal votes
-      if (sortedVotes.length <= usersWithVotes.length) {
+      if (sortedVotes.length >= Math.ceil(usersWithVotes.length / 2)) {
         const usersSelectedToJustify = sortedVotes[0][1];
         usersSelectedToJustify.forEach(async (userId: Id<"users">) => {
           await ctx.db.patch(userId, { justifyVote: true });
