@@ -43,15 +43,14 @@ export const showCards = mutation({
         id: user._id,
       }));
 
+      console.debug("votes", votes);
+
       // check if theres no equal votes
       const votesCount = votes?.map((vote) => vote.vote);
       const uniqueVotes = new Set(votesCount);
 
-      //if theres less than 2 players in the room dont run this logic
-      if (usersWithVotes.length > 2 && uniqueVotes.size === votesCount.length) {
-        // logic when there is no equal votes
-        console.log("no equal votes");
-      }
+      console.debug("votesCount", votesCount);
+      console.debug("uniqueVotes", uniqueVotes);
 
       // logic to separate users by their vote
       for (let i = 0; i < votes.length; i++) {
@@ -73,7 +72,7 @@ export const showCards = mutation({
       });
 
       // if theres less than 2 unequal votes
-      if (sortedVotes.length >= Math.ceil(usersWithVotes.length / 2)) {
+      if (votesCount.length > 1 && sortedVotes.length > 1) {
         const usersSelectedToJustify = sortedVotes[0][1];
         usersSelectedToJustify.forEach(async (userId: Id<"users">) => {
           await ctx.db.patch(userId, { justifyVote: true });
