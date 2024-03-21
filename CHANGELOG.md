@@ -1,5 +1,4 @@
 
-
 ## [0.6.1](https://github.com/LeoCaprile/poker-planning/compare/0.6.0...0.6.1) (2024-03-21)
 
 
