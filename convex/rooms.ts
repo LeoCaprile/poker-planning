@@ -43,14 +43,8 @@ export const showCards = mutation({
         id: user._id,
       }));
 
-      console.debug("votes", votes);
-
       // check if theres no equal votes
       const votesCount = votes?.map((vote) => vote.vote);
-      const uniqueVotes = new Set(votesCount);
-
-      console.debug("votesCount", votesCount);
-      console.debug("uniqueVotes", uniqueVotes);
 
       // logic to separate users by their vote
       for (let i = 0; i < votes.length; i++) {
