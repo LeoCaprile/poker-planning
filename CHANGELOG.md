@@ -1,5 +1,13 @@
 
 
+## [0.6.1](https://github.com/LeoCaprile/poker-planning/compare/0.6.0...0.6.1) (2024-03-21)
+
+
+### Bug Fixes
+
+* fixed error on condition ([4805c88](https://github.com/LeoCaprile/poker-planning/commit/4805c88ec7e7ff643f7eac3152de14d2cfa4ed31))
+* user state 'justifyVote'to false  when click next est. ([eeae65b](https://github.com/LeoCaprile/poker-planning/commit/eeae65b5375bfbaa5efb784955d2e68636e6e0be))
+
 # 0.6.0 (2024-01-12)
 
 
