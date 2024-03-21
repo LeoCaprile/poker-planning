@@ -129,6 +129,21 @@ export const resetVotes = mutation({
   },
 });
 
+export const showConfetti = mutation({
+  args: { id: v.id("rooms") },
+  handler: async (ctx, args) => {
+    await ctx.db.patch(args.id, { showConfetti: true });
+    ctx.scheduler.runAfter(3000, internal.rooms.hideConfetti, { id: args.id });
+  },
+});
+
+export const hideConfetti = internalMutation({
+  args: { id: v.id("rooms") },
+  handler: async (ctx, args) => {
+    await ctx.db.patch(args.id, { showConfetti: false });
+  },
+});
+
 export const getOldRooms = internalQuery({
   handler: async (ctx) => {
     const rooms = await ctx.db.query("rooms").collect();

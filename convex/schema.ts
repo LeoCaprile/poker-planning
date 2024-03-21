@@ -6,6 +6,7 @@ export default defineSchema({
     showVotes: v.boolean(),
     users: v.array(v.id("users")),
     votesValues: v.optional(v.array(v.float64())),
+    showConfetti: v.optional(v.boolean()),
   }),
   users: defineTable({
     name: v.string(),
