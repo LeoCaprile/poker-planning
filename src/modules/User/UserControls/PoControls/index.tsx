@@ -4,7 +4,6 @@ import React from "react";
 import { api } from "../../../../../convex/_generated/api";
 import { useRouter } from "next/router";
 import { Id } from "../../../../../convex/_generated/dataModel";
-import useRoomStore from "@/modules/Room/store/useRoomStore";
 
 const PoControls = () => {
   const router = useRouter();
@@ -12,22 +11,24 @@ const PoControls = () => {
 
   const showCards = useMutation(api.rooms.showCards);
   const resetVotes = useMutation(api.rooms.resetVotes);
+  const showConfetti = useMutation(api.rooms.showConfetti);
   const room = useQuery(api.rooms.get, { id });
   const users = useQuery(api.rooms.getUsers, { id });
-  const showConfetti = useRoomStore((store) => store.showConfetti);
   const usersHasVoted = !users?.some((user) => user?.vote !== 0);
 
   function handleShowConfetti() {
     const areAllVotesEqual =
       new Set(users.map((user) => user.vote).filter(Boolean)).size == 1;
+
     const roomHaveMoreThanOneUserWithVotes =
       users.filter((user) => user.vote > 0).length > 1;
+
     if (
       roomHaveMoreThanOneUserWithVotes &&
       areAllVotesEqual &&
       !room?.showVotes
     ) {
-      showConfetti();
+      showConfetti({ id });
     }
   }
 
