@@ -1,4 +1,17 @@
 
+
+# 0.7.0 (2024-03-21)
+
+
+### Bug Fixes
+
+* unneven votes logic ([c68ea13](https://github.com/LeoCaprile/poker-planning/commit/c68ea130bad5c15b60eaffe869f9cbe29f0836c4))
+
+
+### Features
+
+* added confetti when all votes are equal ([bd928ca](https://github.com/LeoCaprile/poker-planning/commit/bd928ca9cf6281ce670c47ab84fb1d34ef3f551c))
+
 ## [0.6.1](https://github.com/LeoCaprile/poker-planning/compare/0.6.0...0.6.1) (2024-03-21)
 
 
