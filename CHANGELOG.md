@@ -1,5 +1,12 @@
 
 
+## 0.7.1 (2024-03-21)
+
+
+### Bug Fixes
+
+* show confetti ([452b1f8](https://github.com/LeoCaprile/poker-planning/commit/452b1f8137a5119d6a8e5c43c3a1bfab271096b5))
+
 # 0.7.0 (2024-03-21)
 
 

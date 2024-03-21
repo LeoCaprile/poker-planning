@@ -20,9 +20,13 @@ const PoControls = () => {
   function handleShowConfetti() {
     const areAllVotesEqual =
       new Set(users.map((user) => user.vote).filter(Boolean)).size == 1;
-    const roomHaveMoreThanOneUser = users.length > 1;
-    console.log(room.showVotes);
-    if (roomHaveMoreThanOneUser && areAllVotesEqual && !room?.showVotes) {
+    const roomHaveMoreThanOneUserWithVotes =
+      users.filter((user) => user.vote > 0).length > 1;
+    if (
+      roomHaveMoreThanOneUserWithVotes &&
+      areAllVotesEqual &&
+      !room?.showVotes
+    ) {
       showConfetti();
     }
   }
