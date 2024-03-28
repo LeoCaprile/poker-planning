@@ -1,5 +1,12 @@
 
 
+## 0.7.3 (2024-03-28)
+
+
+### Bug Fixes
+
+* max-users ([984883d](https://github.com/LeoCaprile/poker-planning/commit/984883d0f87ad0bfc530b07aabd96a3416abf394))
+
 ## 0.7.2 (2024-03-21)
 
 

@@ -7,7 +7,7 @@ import { useUserStore } from "@/modules/User/store/userStore";
 import { UserRoleT, UserRoles, UserState } from "../types";
 import toast from "react-hot-toast";
 
-const DEV_USER_ROLE_LIMIT = 6;
+const DEV_USER_ROLE_LIMIT = 8;
 
 export const ChooseRoleModal = () => {
   const router = useRouter();
