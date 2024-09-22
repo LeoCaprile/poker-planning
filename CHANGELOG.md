@@ -1,5 +1,12 @@
 
 
+# 0.8.0 (2024-09-22)
+
+
+### Features
+
+* added logo and changed home page ([7d898f6](https://github.com/LeoCaprile/poker-planning/commit/7d898f624b3786418ebfceae7b598833945b3869))
+
 ## 0.7.3 (2024-03-28)
 
 
